@@ -1,51 +1,74 @@
 # Expense Tracker
 
-## Description
+## Overview
 
-Expense Tracker is a simple web application for recording and managing personal expenses. Users can add expenses, view their recorded expenses, delete expenses, and see a summary of their spending by category.
+Expense Tracker is a Node.js web application that allows users to record, view, manage, and summarize their expenses.
 
-The project was created for the CSE 310 Web Apps module using JavaScript and Node.js.
+The application uses Express to handle web requests and EJS to dynamically generate HTML pages on the server. Expense records are stored in a SQLite database.
 
 ## Features
 
-* Add a new expense
-* View all recorded expenses on the dashboard
-* Delete an expense
+* Add new expenses
+* View expenses on the dashboard
+* Delete existing expenses
 * View total spending
-* View the total number of expenses
+* View the number of recorded expenses
 * View spending totals by category
-* Store expense information in a SQLite database
-* Responsive layout for smaller screens
+* Confirmation message after successfully adding an expense
+* Confirmation message after successfully deleting an expense
+* Confirmation prompt before deleting an expense
+* Validation and error handling for invalid expense information
+* Responsive interface for smaller screens
 
-## Technologies
+## Technologies Used
 
 * JavaScript
 * Node.js
-* Express.js
+* Express
 * EJS
 * SQLite
 * HTML
 * CSS
 
-## Getting Started
+## Web App Requirements
 
-### Prerequisites
+### Dynamically Generated Pages
 
-You need to have Node.js and npm installed on your computer.
+The application contains multiple dynamically generated pages:
 
-### Installation
+1. **Dashboard (`/`)**
 
-1. Clone the repository.
+   * Displays expense records retrieved from the SQLite database.
+   * Calculates and displays total spending and the number of expenses.
 
-2. Open a terminal in the project folder.
+2. **Add Expense (`/add-expense`)**
 
-3. Install the project dependencies:
+   * Provides a form for entering expense information.
+   * User input is processed by the Node.js application and stored in the database.
 
-```bash
-npm install
-```
+3. **Summary (`/summary`)**
 
-### Running the Application
+   * Displays spending totals grouped by expense category.
+   * Calculates category percentages based on the total spending.
+
+### User Interaction
+
+The application is interactive because the content displayed is affected by user input.
+
+A user can enter:
+
+* Expense description
+* Amount
+* Category
+* Date
+
+The information is submitted to the Node.js server, stored in the SQLite database, and then displayed on the Dashboard and Summary pages.
+
+Users can also delete expenses from the Dashboard.
+
+### Local Web Server
+
+The application runs locally using the Node.js and Express server.
 
 Start the application with:
 
@@ -53,41 +76,59 @@ Start the application with:
 npm start
 ```
 
-The application will run locally at:
+Then open:
 
 ```text
 http://localhost:3000
 ```
 
-You can also use the development command:
+## Database
 
-```bash
-npm run dev
-```
+The application uses SQLite to store expense information.
 
-## How to Use
+Each expense contains:
 
-### Dashboard
+* ID
+* Description
+* Amount
+* Category
+* Date
 
-The dashboard displays the recorded expenses along with the total amount spent and the number of expenses.
+The database is automatically created when the application starts.
 
-### Expenses
+## JavaScript Concepts Demonstrated
 
-The expenses only displays the recorded expenses.
+The project also demonstrates several JavaScript programming concepts.
 
-### Add an Expense
+### ES6 Array Functions
 
-Select **Add Expense**, enter the expense description, amount, category, and date, then submit the form.
+The application uses native JavaScript array functions including:
 
-The new expense is stored in the SQLite database and appears on the dashboard.
+* `filter()`
+* `map()`
+* `reduce()`
 
-### Summary
+These are used to process expense records and calculate information displayed by the application.
 
-The Summary page displays the total spending and groups expenses by category.
+### Recursion
 
-### Delete an Expense
+The application includes a recursive function named `calculateTotalRecursive()`.
 
-Use the **Delete** button beside an expense on the dashboard to remove it from the database.
+The function processes the expense amounts and recursively calculates the total.
+
+### Exception Handling
+
+The application validates user input and throws an error when invalid information is submitted.
+
+The error is handled using `try/catch`, and an appropriate message is displayed to the user.
+
+### Third-Party JavaScript Libraries
+
+The project uses JavaScript packages created by other developers, including:
+
+* Express
+* EJS
+* better-sqlite3
 
 ## Project Structure
 
@@ -103,9 +144,87 @@ expense-tracker/
 ├── views/
 │   ├── index.ejs
 │   ├── add-expense.ejs
-│   ├── expense.ejs
 │   └── summary.ejs
 ├── .gitignore
 ├── package.json
-├── package-lock
+├── package-lock.json
+├── README.md
+└── server.js
 ```
+
+## Installation
+
+### Requirements
+
+Node.js and npm must be installed.
+
+### Install Dependencies
+
+Open a terminal in the project directory and run:
+
+```bash
+npm install
+```
+
+### Start the Application
+
+Run:
+
+```bash
+npm start
+```
+
+The application will be available at:
+
+```text
+http://localhost:3000
+```
+
+## How to Use
+
+### Dashboard
+
+The Dashboard displays the recorded expenses and summary statistics.
+
+Click **+ Add Expense** to create a new expense.
+
+### Adding an Expense
+
+Enter the description, amount, category, and date, then select **Save Expense**.
+
+After the expense is successfully saved, the application returns to the Dashboard and displays a confirmation message.
+
+### Deleting an Expense
+
+Select **Delete** beside an expense.
+
+The application asks for confirmation before deleting the record.
+
+If the deletion is confirmed, the record is removed from the SQLite database and a success message is displayed.
+
+### Summary
+
+Select **Summary** from the navigation menu to view total spending and spending by category.
+
+## Error Handling
+
+The application checks submitted expense information before saving it.
+
+For example, an error is generated if:
+
+* The description is empty.
+* The amount is missing or less than or equal to zero.
+* The category is missing.
+* The date is missing.
+
+These errors are handled by the application and displayed on the Add Expense page.
+
+## Learning
+
+This project helped me practice building a server-side web application with JavaScript and Node.js. I learned how to create routes with Express, generate dynamic pages with EJS, process form submissions, store information in SQLite, work with JavaScript array functions, use recursion, and handle errors.
+
+The project also gave me experience connecting the different parts of a web application so that information entered by a user can be processed, stored, and displayed dynamically.
+
+## Author
+
+CSE 310 Applied Programming Student
