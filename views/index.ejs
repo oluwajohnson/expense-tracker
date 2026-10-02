@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Expense Tracker</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+    <header>
+        <nav>
+            <a href="/">Dashboard</a>
+             <a href="/expenses">Expenses</a>
+            <a href="/summary">Summary</a>
+        </nav>
+    </header>
+
+    <main class="container">
+
+        <div class="page-header">
+            <div>
+                <h1>Expense Dashboard</h1>
+                <p>View and manage your expenses.</p>
+            </div>
+
+            <a href="/add-expense" class="button">
+                + Add Expense
+            </a>
+        </div>
+
+        <div class="summary-grid">
+
+            <div class="card">
+                <h2>Total Spent</h2>
+                <p class="large-number">
+                    ₦<%= Number(total).toFixed(2) %>
+                </p>
+            </div>
+
+            <div class="card">
+                <h2>Total Expenses</h2>
+                <p class="large-number">
+                    <%= count %>
+                </p>
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <h2>Recent Expenses</h2>
+
+            <% if (expenses.length === 0) { %>
+
+                <p>No expenses have been added yet.</p>
+
+                <a href="/add-expense" class="button">
+                    Add Your First Expense
+                </a>
+
+            <% } else { %>
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Amount</th>
+                            <th>Category</th>
+                            <th>Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <% expenses.forEach(expense => { %>
+
+                            <tr>
+
+                                <td>
+                                    <%= expense.description %>
+                                </td>
+
+                                <td>
+                                    ₦<%= Number(expense.amount).toFixed(2) %>
+                                </td>
+
+                                <td>
+                                    <%= expense.category %>
+                                </td>
+
+                                <td>
+                                    <%= expense.expense_date %>
+                                </td>
+
+                                <td>
+
+                                    <form
+                                        action="/expenses/<%= expense.id %>/delete"
+                                        method="POST"
+                                    >
+
+                                        <button
+                                            type="submit"
+                                            class="delete-button"
+                                        >
+                                            Delete
+                                        </button>
+
+                                    </form>
+
+                                </td>
+
+                            </tr>
+
+                        <% }) %>
+
+                    </tbody>
+
+                </table>
+
+            <% } %>
+
+        </div>
+
+    </main>
+
+    <script src="/js/script.js"></script>
+
+</body>
+</html>

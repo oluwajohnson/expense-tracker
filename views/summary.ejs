@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Summary</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <header>
+        <nav>
+            <a href="/">Dashboard</a>
+            <a href="/expenses">Expenses</a>
+            <a href="/summary">Summary</a>
+        </nav>
+    </header>
+
+    <main class="container">
+
+        <h1>Expense Summary</h1>
+
+        <div class="summary-grid">
+
+            <div class="card">
+                <h2>Total Spent</h2>
+                <p class="large-number">
+                    ₦<%= Number(total).toFixed(2) %>
+                </p>
+            </div>
+
+            <div class="card">
+                <h2>Total Expenses</h2>
+                <p class="large-number">
+                    <%= count %>
+                </p>
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <h2>Spending by Category</h2>
+
+            <% if (categoryTotals.length === 0) { %>
+
+                <p>No expense data available yet.</p>
+
+            <% } else { %>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <% categoryTotals.forEach(item => { %>
+                            <tr>
+                                <td><%= item.category %></td>
+                                <td>
+                                    ₦<%= Number(item.total).toFixed(2) %>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+
+            <% } %>
+
+        </div>
+
+    </main>
+
+</body>
+</html>

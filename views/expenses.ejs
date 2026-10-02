@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Expenses</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <header>
+        <nav>
+            <a href="/">Dashboard</a>
+            <a href="/expenses">Expenses</a>
+            <a href="/summary">Summary</a>
+        </nav>
+    </header>
+
+    <main class="container">
+
+        <h1>My Expenses</h1>
+
+        <% if (expenses.length === 0) { %>
+
+            <div class="card">
+                <p>No expenses have been added yet.</p>
+                <a class="button" href="/">Add Your First Expense</a>
+            </div>
+
+        <% } else { %>
+
+            <div class="card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Amount</th>
+                            <th>Category</th>
+                            <th>Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <% expenses.forEach(expense => { %>
+                            <tr>
+                                <td><%= expense.description %></td>
+                                <td>₦<%= Number(expense.amount).toFixed(2) %></td>
+                                <td><%= expense.category %></td>
+                                <td><%= expense.expense_date %></td>
+                                <td>
+                                    <form
+                                        action="/expenses/<%= expense.id %>/delete"
+                                        method="POST"
+                                    >
+                                        <button
+                                            type="submit"
+                                            class="delete-button"
+                                        >
+                                            Delete
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+
+        <% } %>
+
+    </main>
+
+    <script src="/js/script.js"></script>
+
+</body>
+</html>
